@@ -1,15 +1,22 @@
+```html
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <meta name="author" content="MANNU">
 <meta name="description" content="EyeGuard AI - Real-time eye monitoring dashboard created by MANNU">
+
 <title>EyeGuard AI — Made by MANNU</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0
+}
 
 body{
 font-family:Arial,Helvetica,sans-serif;
@@ -18,7 +25,10 @@ color:#eef6ff;
 min-height:100vh
 }
 
-button{font:inherit;cursor:pointer}
+button{
+font:inherit;
+cursor:pointer
+}
 
 .app{
 max-width:1400px;
@@ -50,8 +60,15 @@ place-items:center;
 font-size:25px
 }
 
-.logo h1{font-size:24px}
-.logo p{font-size:13px;color:#8fa7bd;margin-top:4px}
+.logo h1{
+font-size:24px
+}
+
+.logo p{
+font-size:13px;
+color:#8fa7bd;
+margin-top:4px
+}
 
 .creator{
 display:inline-block;
@@ -107,8 +124,14 @@ justify-content:space-between;
 align-items:center
 }
 
-.cardHead h2{font-size:16px}
-.cardHead span{font-size:12px;color:#7890a6}
+.cardHead h2{
+font-size:16px
+}
+
+.cardHead span{
+font-size:12px;
+color:#7890a6
+}
 
 .camera{
 position:relative;
@@ -148,7 +171,9 @@ background:rgba(2,7,13,.75);
 color:#9eb3c8
 }
 
-.waiting.hidden{display:none}
+.waiting.hidden{
+display:none
+}
 
 .waiting strong{
 color:white;
@@ -180,8 +205,13 @@ border:1px solid #27435d;
 font-size:12px
 }
 
-.liveBadge.good{color:#4ade80}
-.liveBadge.bad{color:#f87171}
+.liveBadge.good{
+color:#4ade80
+}
+
+.liveBadge.bad{
+color:#f87171
+}
 
 .cameraBottom{
 position:absolute;
@@ -207,7 +237,9 @@ color:#7890a6;
 margin-bottom:4px
 }
 
-.statusPill b{font-size:13px}
+.statusPill b{
+font-size:13px
+}
 
 .controls{
 padding:16px;
@@ -225,21 +257,27 @@ color:white;
 background:#173453
 }
 
-.btn:hover{background:#214769}
+.btn:hover{
+background:#214769
+}
 
 .btn.primary{
 background:#087f5b;
 border-color:#0ca678
 }
 
-.btn.primary:hover{background:#099268}
+.btn.primary:hover{
+background:#099268
+}
 
 .btn.danger{
 background:#8b2635;
 border-color:#b83248
 }
 
-.btn.danger:hover{background:#a52d40}
+.btn.danger:hover{
+background:#a52d40
+}
 
 .btn:disabled{
 opacity:.45;
@@ -258,7 +296,9 @@ font-size:12px;
 line-height:1.5
 }
 
-.errorBox.show{display:block}
+.errorBox.show{
+display:block
+}
 
 .progressWrap{
 padding:0 18px 18px
@@ -333,14 +373,18 @@ color:#7890a6;
 margin-bottom:5px
 }
 
-.stat b{font-size:19px}
+.stat b{
+font-size:19px
+}
 
 .setting{
 padding:14px 16px;
 border-bottom:1px solid #1d344b
 }
 
-.setting:last-child{border-bottom:0}
+.setting:last-child{
+border-bottom:0
+}
 
 .settingRow{
 display:flex;
@@ -360,7 +404,9 @@ color:#71879c;
 margin-top:4px
 }
 
-input[type=range]{width:120px}
+input[type=range]{
+width:120px
+}
 
 .switch{
 position:relative;
@@ -369,7 +415,9 @@ height:24px;
 flex:none
 }
 
-.switch input{display:none}
+.switch input{
+display:none
+}
 
 .slider{
 position:absolute;
@@ -520,20 +568,35 @@ font-weight:bold
 }
 
 @media(max-width:900px){
-.grid{grid-template-columns:1fr}
+
+.grid{
+grid-template-columns:1fr
+}
+
 header{
 flex-direction:column;
 align-items:flex-start
 }
+
 }
 
 @media(max-width:600px){
-.app{padding:12px}
-#video{height:350px}
-.camera{min-height:350px}
-}
-</style>
 
+.app{
+padding:12px
+}
+
+#video{
+height:350px
+}
+
+.camera{
+min-height:350px
+}
+
+}
+
+</style>
 </head>
 
 <body>
@@ -544,107 +607,219 @@ align-items:flex-start
 
 <div class="logo">
 
-<div class="logoIcon">👁️</div>
+<div class="logoIcon">
+👁️
+</div>
 
 <div>
+
 <h1>EyeGuard AI</h1>
-<p>Real-time eye monitoring dashboard</p>
-<span class="creator">CREATED BY MANNU</span>
+
+<p>
+Real-time eye monitoring dashboard
+</p>
+
+<span class="creator">
+CREATED BY MANNU
+</span>
+
 </div>
 
 </div>
 
 <div class="topStatus">
+
 <span id="liveDot" class="dot"></span>
-<span id="cameraText">Camera Offline</span>
+
+<span id="cameraText">
+Camera Offline
+</span>
+
 </div>
 
 </header>
+
 
 <div class="grid">
 
 <section class="card">
 
 <div class="cardHead">
-<h2>Live Eye Monitor</h2>
-<span id="faceBadge">Waiting</span>
+
+<h2>
+Live Eye Monitor
+</h2>
+
+<span id="faceBadge">
+Waiting
+</span>
+
 </div>
+
 
 <div class="camera">
 
-<video id="video" autoplay muted playsinline></video> <canvas id="canvas"></canvas>
+<video
+id="video"
+autoplay
+muted
+playsinline>
+</video>
 
-<div id="faceGuide" class="faceGuide"></div>
+<canvas id="canvas"></canvas>
 
-<div id="waiting" class="waiting">
-<strong>Camera waiting</strong>
-<span>Click Start Monitoring</span>
+<div
+id="faceGuide"
+class="faceGuide">
 </div>
 
-<div id="liveBadge" class="liveBadge">
+
+<div
+id="waiting"
+class="waiting">
+
+<strong>
+Camera waiting
+</strong>
+
+<span>
+Click Start Monitoring
+</span>
+
+</div>
+
+
+<div
+id="liveBadge"
+class="liveBadge">
+
 SYSTEM STANDBY
+
 </div>
+
 
 <div class="cameraBottom">
 
 <div class="statusPill">
-<small>EYE STATE</small>
-<b id="eyeState">Unknown</b>
+
+<small>
+EYE STATE
+</small>
+
+<b id="eyeState">
+Unknown
+</b>
+
 </div>
+
 
 <div class="statusPill">
-<small>CONFIDENCE</small>
-<b id="confidence">0%</b>
-</div>
+
+<small>
+CONFIDENCE
+</small>
+
+<b id="confidence">
+0%
+</b>
 
 </div>
 
 </div>
+
+</div>
+
 
 <div class="controls">
 
-<button id="startBtn" class="btn primary">
+<button
+id="startBtn"
+class="btn primary">
 ▶ Start Monitoring
 </button>
 
-<button id="stopBtn" class="btn danger" disabled>
+
+<button
+id="stopBtn"
+class="btn danger"
+disabled>
 ■ Stop Monitoring
 </button>
 
-<button id="testBtn" class="btn">
+
+<button
+id="testBtn"
+class="btn">
 🔔 Test Alert
 </button>
 
-<button id="resetBtn" class="btn">
+
+<!-- NEW FEATURE -->
+
+<button
+id="reportBtn"
+class="btn">
+📄 Session Report
+</button>
+
+
+<button
+id="resetBtn"
+class="btn">
 ↻ Reset
 </button>
 
 </div>
 
-<div id="errorBox" class="errorBox"></div>
+
+<div
+id="errorBox"
+class="errorBox">
+</div>
+
 
 <div class="progressWrap">
 
 <div class="progressTop">
-<span>Eyes closed duration</span>
-<span id="closedDuration">0.0s</span>
+
+<span>
+Eyes closed duration
+</span>
+
+<span id="closedDuration">
+0.0s
+</span>
+
 </div>
 
+
 <div class="progress">
-<div id="progressBar"></div>
+
+<div
+id="progressBar">
+</div>
+
 </div>
 
 </div>
 
 </section>
 
+
 <aside class="side">
+
 
 <section class="card bigStatus">
 
-<div id="bigIcon" class="icon">👀</div>
+<div
+id="bigIcon"
+class="icon">
+👀
+</div>
 
-<h2 id="bigStatus">Ready</h2>
+<h2 id="bigStatus">
+Ready
+</h2>
 
 <p id="description">
 Start monitoring to activate eye detection.
@@ -652,92 +827,191 @@ Start monitoring to activate eye detection.
 
 </section>
 
+
 <section class="card">
 
 <div class="cardHead">
-<h2>Session Analytics</h2>
-<span>Live</span>
+
+<h2>
+Session Analytics
+</h2>
+
+<span>
+Live
+</span>
+
 </div>
+
 
 <div class="stats">
 
 <div class="stat">
-<small>SESSION TIME</small>
-<b id="sessionTime">00:00</b>
+
+<small>
+SESSION TIME
+</small>
+
+<b id="sessionTime">
+00:00
+</b>
+
 </div>
 
-<div class="stat">
-<small>ALERTS</small>
-<b id="alertCount">0</b>
-</div>
 
 <div class="stat">
-<small>CLOSED EVENTS</small>
-<b id="closedEvents">0</b>
+
+<small>
+ALERTS
+</small>
+
+<b id="alertCount">
+0
+</b>
+
 </div>
 
+
 <div class="stat">
-<small>LONGEST CLOSE</small>
-<b id="longestClose">0.0s</b>
+
+<small>
+CLOSED EVENTS
+</small>
+
+<b id="closedEvents">
+0
+</b>
+
+</div>
+
+
+<div class="stat">
+
+<small>
+LONGEST CLOSE
+</small>
+
+<b id="longestClose">
+0.0s
+</b>
+
 </div>
 
 </div>
 
 </section>
 
+
 <section class="card">
 
 <div class="cardHead">
-<h2>Location</h2>
-<span id="locationHeader">Permission</span>
+
+<h2>
+Location
+</h2>
+
+<span id="locationHeader">
+Permission
+</span>
+
 </div>
+
 
 <div class="locationBox">
 
 <div class="locationStatus">
-<span id="locationDot" class="locationDot"></span>
-<span id="locationStatus">Requesting location...</span>
+
+<span
+id="locationDot"
+class="locationDot">
+</span>
+
+<span id="locationStatus">
+Requesting location...
+</span>
+
 </div>
+
 
 <div class="locationInfo">
 
 <div class="locationRow">
-<small>📍 CURRENT LOCATION</small>
-<b id="locationPlace">Detecting...</b>
-</div>
+
+<small>
+📍 CURRENT LOCATION
+</small>
+
+<b id="locationPlace">
+Detecting...
+</b>
 
 </div>
 
-<button id="locationBtn" class="btn locationButton">
+</div>
+
+
+<button
+id="locationBtn"
+class="btn locationButton">
+
 📍 Allow Location
+
 </button>
 
 </div>
 
 </section>
 
+
 <section class="card">
 
 <div class="cardHead">
-<h2>Settings</h2>
-<span>Control</span>
+
+<h2>
+Settings
+</h2>
+
+<span>
+Control
+</span>
+
 </div>
+
 
 <div class="setting">
 
 <div class="settingRow">
 
 <div>
-<div class="settingTitle">Alert Delay</div>
-<div class="settingDesc">Alert after eyes stay closed</div>
+
+<div class="settingTitle">
+Alert Delay
 </div>
+
+<div class="settingDesc">
+Alert after eyes stay closed
+</div>
+
+</div>
+
 
 <div>
 
-<input id="delayRange" type="range" min="1" max="10" step=".5" value="3">
+<input
+id="delayRange"
+type="range"
+min="1"
+max="10"
+step=".5"
+value="3">
 
-<div style="text-align:right;color:#8fa7bd;font-size:11px">
-<span id="delayText">3.0s</span>
+
+<div
+style="text-align:right;color:#8fa7bd;font-size:11px">
+
+<span id="delayText">
+3.0s
+</span>
+
 </div>
 
 </div>
@@ -745,37 +1019,69 @@ Start monitoring to activate eye detection.
 </div>
 
 </div>
+
 
 <div class="setting">
 
 <div class="settingRow">
 
 <div>
-<div class="settingTitle">Siren Sound</div>
-<div class="settingDesc">Play sound during alert</div>
+
+<div class="settingTitle">
+Siren Sound
 </div>
+
+<div class="settingDesc">
+Play sound during alert
+</div>
+
+</div>
+
 
 <label class="switch">
-<input id="soundToggle" type="checkbox" checked>
-<span class="slider"></span>
+
+<input
+id="soundToggle"
+type="checkbox"
+checked>
+
+<span class="slider">
+</span>
+
 </label>
 
 </div>
 
 </div>
 
+
 <div class="setting">
 
 <div class="settingRow">
 
 <div>
-<div class="settingTitle">Face Guide</div>
-<div class="settingDesc">Show camera positioning guide</div>
+
+<div class="settingTitle">
+Face Guide
 </div>
 
+<div class="settingDesc">
+Show camera positioning guide
+</div>
+
+</div>
+
+
 <label class="switch">
-<input id="guideToggle" type="checkbox" checked>
-<span class="slider"></span>
+
+<input
+id="guideToggle"
+type="checkbox"
+checked>
+
+<span class="slider">
+</span>
+
 </label>
 
 </div>
@@ -788,65 +1094,120 @@ Start monitoring to activate eye detection.
 
 </div>
 
+
 <footer>
-EyeGuard AI • <span class="footerBrand">Made with ❤️ by MANNU</span> • Browser-based computer vision demo
+
+EyeGuard AI •
+<span class="footerBrand">
+Made with ❤️ by MANNU
+</span>
+•
+Browser-based computer vision demo
+
 </footer>
 
 </div>
 
-<div id="alert" class="alert">
+
+<div
+id="alert"
+class="alert">
 
 <div class="alertBox">
 
-<div class="alertIcon">🚨</div>
+<div class="alertIcon">
+🚨
+</div>
 
-<h1>WAKE UP!</h1>
+<h1>
+WAKE UP!
+</h1>
 
 <p>
 Eyes have remained closed for too long.
+<br>
 Please open your eyes.
 </p>
 
 <div class="alertTime">
-Closed: <span id="alertTime">0.0s</span>
+
+Closed:
+<span id="alertTime">
+0.0s
+</span>
+
 </div>
 
-<button id="closeAlert" class="btn danger">
+<button
+id="closeAlert"
+class="btn danger">
+
 Stop Alert
+
 </button>
 
 </div>
 
 </div>
 
+
 <script>
 
-const $ = id => document.getElementById(id);
+const $ =
+id =>
+document.getElementById(id);
 
-const video = $("video");
-const canvas = $("canvas");
-const ctx = canvas.getContext("2d");
+
+const video =
+$("video");
+
+const canvas =
+$("canvas");
+
+const ctx =
+canvas.getContext("2d");
+
 
 let stream = null;
+
 let faceLandmarker = null;
+
 let running = false;
+
 let loadingAI = false;
+
 let animationId = null;
+
 let sessionTimer = null;
+
 let sessionStart = 0;
+
 let eyesClosed = false;
+
 let closedStart = 0;
+
 let alertActive = false;
+
 let alertDelay = 3;
+
 let soundEnabled = true;
+
 let alertCounter = 0;
+
 let closedEventCounter = 0;
+
 let longestClose = 0;
+
 let audioContext = null;
+
 let oscillator = null;
+
 let gainNode = null;
+
 let sirenInterval = null;
+
 let locationGranted = false;
+
 
 
 /* LOCATION */
@@ -855,111 +1216,219 @@ async function requestLocation(){
 
 if(!navigator.geolocation){
 
-$("locationStatus").textContent="Location unavailable";
-$("locationHeader").textContent="Unavailable";
-$("locationDot").className="locationDot bad";
-$("locationPlace").textContent="Not supported";
-$("locationBtn").textContent="📍 Try Again";
-$("locationBtn").disabled=false;
+$("locationStatus").textContent =
+"Location unavailable";
+
+$("locationHeader").textContent =
+"Unavailable";
+
+$("locationDot").className =
+"locationDot bad";
+
+$("locationPlace").textContent =
+"Not supported";
+
+$("locationBtn").textContent =
+"📍 Try Again";
+
+$("locationBtn").disabled =
+false;
+
 return;
 
 }
 
-$("locationStatus").textContent="Detecting your location...";
-$("locationHeader").textContent="Detecting";
-$("locationPlace").textContent="Please wait...";
-$("locationDot").className="locationDot";
-$("locationBtn").disabled=true;
+
+$("locationStatus").textContent =
+"Detecting your location...";
+
+$("locationHeader").textContent =
+"Detecting";
+
+$("locationPlace").textContent =
+"Please wait...";
+
+$("locationDot").className =
+"locationDot";
+
+$("locationBtn").disabled =
+true;
+
 
 navigator.geolocation.getCurrentPosition(
 
 async function(position){
 
-const lat=position.coords.latitude;
-const lon=position.coords.longitude;
+const lat =
+position.coords.latitude;
+
+const lon =
+position.coords.longitude;
+
 
 try{
 
-const response=await fetch(
+const response =
+await fetch(
+
 "https://api.bigdatacloud.net/data/reverse-geocode-client"+
 "?latitude="+encodeURIComponent(lat)+
 "&longitude="+encodeURIComponent(lon)+
 "&localityLanguage=en"
+
 );
 
-if(!response.ok) throw new Error("Location service unavailable");
 
-const data=await response.json();
+if(!response.ok)
+throw new Error(
+"Location service unavailable"
+);
 
-const city=
+
+const data =
+await response.json();
+
+
+const city =
 data.city ||
 data.locality ||
 data.localityInfo?.administrative?.find(
-item=>item.adminLevel===7
+item =>
+item.adminLevel === 7
 )?.name ||
 "Unknown City";
 
-const state=
+
+const state =
 data.principalSubdivision ||
 data.localityInfo?.administrative?.find(
-item=>item.adminLevel===4
+item =>
+item.adminLevel === 4
 )?.name ||
 "";
 
-const country=data.countryName || "";
 
-let locationText=city;
+const country =
+data.countryName || "";
 
-if(state && state.toLowerCase()!==city.toLowerCase()){
-locationText+=", "+state;
+
+let locationText =
+city;
+
+
+if(
+state &&
+state.toLowerCase() !==
+city.toLowerCase()
+){
+
+locationText +=
+", " + state;
+
 }
+
 
 if(country){
-locationText+=", "+country;
+
+locationText +=
+", " + country;
+
 }
 
-$("locationPlace").textContent=locationText;
+
+$("locationPlace").textContent =
+locationText;
+
 
 }catch(error){
 
-console.warn("Reverse geocoding error:",error);
-$("locationPlace").textContent="Location detected";
+console.warn(
+"Reverse geocoding error:",
+error
+);
+
+$("locationPlace").textContent =
+"Location detected";
 
 }
 
-$("locationStatus").textContent="Location Enabled";
-$("locationHeader").textContent="Enabled";
-$("locationDot").className="locationDot good";
-$("locationBtn").textContent="✓ Location Enabled";
-$("locationBtn").disabled=true;
-locationGranted=true;
+
+$("locationStatus").textContent =
+"Location Enabled";
+
+$("locationHeader").textContent =
+"Enabled";
+
+$("locationDot").className =
+"locationDot good";
+
+$("locationBtn").textContent =
+"✓ Location Enabled";
+
+$("locationBtn").disabled =
+true;
+
+locationGranted =
+true;
 
 },
+
 
 function(error){
 
-locationGranted=false;
-$("locationDot").className="locationDot bad";
-$("locationHeader").textContent="Permission";
+locationGranted =
+false;
 
-if(error.code===1){
-$("locationStatus").textContent="Location Permission Denied";
-$("locationPlace").textContent="Permission denied";
-}else if(error.code===2){
-$("locationStatus").textContent="Location Unavailable";
-$("locationPlace").textContent="Unavailable";
-}else if(error.code===3){
-$("locationStatus").textContent="Location Request Timed Out";
-$("locationPlace").textContent="Timed out";
+$("locationDot").className =
+"locationDot bad";
+
+$("locationHeader").textContent =
+"Permission";
+
+
+if(error.code === 1){
+
+$("locationStatus").textContent =
+"Location Permission Denied";
+
+$("locationPlace").textContent =
+"Permission denied";
+
+}else if(error.code === 2){
+
+$("locationStatus").textContent =
+"Location Unavailable";
+
+$("locationPlace").textContent =
+"Unavailable";
+
+}else if(error.code === 3){
+
+$("locationStatus").textContent =
+"Location Request Timed Out";
+
+$("locationPlace").textContent =
+"Timed out";
+
 }else{
-$("locationStatus").textContent="Unable to get location";
-$("locationPlace").textContent="Unavailable";
+
+$("locationStatus").textContent =
+"Unable to get location";
+
+$("locationPlace").textContent =
+"Unavailable";
+
 }
 
-$("locationBtn").textContent="📍 Try Again";
-$("locationBtn").disabled=false;
+
+$("locationBtn").textContent =
+"📍 Try Again";
+
+$("locationBtn").disabled =
+false;
 
 },
+
 
 {
 enableHighAccuracy:true,
@@ -972,105 +1441,205 @@ maximumAge:0
 }
 
 
+
 /* MEDIAPIPE */
 
-const MEDIA_PIPE_VERSION="1.0.1";
+const MEDIA_PIPE_VERSION =
+"1.0.1";
 
-const CDN_1=
+
+const CDN_1 =
 "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@"+
-MEDIA_PIPE_VERSION+"/+esm";
+MEDIA_PIPE_VERSION+
+"/+esm";
 
-const CDN_2=
+
+const CDN_2 =
 "https://esm.sh/@mediapipe/tasks-vision@"+
 MEDIA_PIPE_VERSION;
 
-const WASM_URL=
-"https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@"+
-MEDIA_PIPE_VERSION+"/wasm";
 
-const MODEL_URL=
+const WASM_URL =
+"https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@"+
+MEDIA_PIPE_VERSION+
+"/wasm";
+
+
+const MODEL_URL =
 "https://storage.googleapis.com/mediapipe-models/"+
 "face_landmarker/face_landmarker/float16/1/"+
 "face_landmarker.task";
 
 
+
 /* UI */
 
-function setStatus(title,text,icon){
-$("bigStatus").textContent=title;
-$("description").textContent=text;
-$("bigIcon").textContent=icon;
+function setStatus(
+title,
+text,
+icon
+){
+
+$("bigStatus").textContent =
+title;
+
+$("description").textContent =
+text;
+
+$("bigIcon").textContent =
+icon;
+
 }
+
 
 function showError(text){
-$("errorBox").textContent=text;
-$("errorBox").classList.add("show");
+
+$("errorBox").textContent =
+text;
+
+$("errorBox").classList.add(
+"show"
+);
+
 }
 
+
 function clearError(){
-$("errorBox").textContent="";
-$("errorBox").classList.remove("show");
+
+$("errorBox").textContent =
+"";
+
+$("errorBox").classList.remove(
+"show"
+);
+
 }
+
 
 
 /* CAMERA */
 
 async function openCamera(){
 
-if(!navigator.mediaDevices ||
-!navigator.mediaDevices.getUserMedia){
+if(
+!navigator.mediaDevices ||
+!navigator.mediaDevices.getUserMedia
+){
 
-throw new Error("Camera API unavailable. Chrome ya Edge use karo.");
+throw new Error(
+"Camera API unavailable. Chrome ya Edge use karo."
+);
 
 }
 
-if(stream)return;
 
-stream=await navigator.mediaDevices.getUserMedia({
+if(stream)
+return;
+
+
+stream =
+await navigator.mediaDevices.getUserMedia({
+
 video:{
-width:{ideal:1280},
-height:{ideal:720},
-facingMode:"user"
+
+width:{
+ideal:1280
 },
+
+height:{
+ideal:720
+},
+
+facingMode:"user"
+
+},
+
 audio:false
+
 });
 
-video.srcObject=stream;
+
+video.srcObject =
+stream;
+
 await video.play();
 
-$("waiting").classList.add("hidden");
-$("liveDot").classList.add("live");
-$("cameraText").textContent="Camera Live";
-$("liveBadge").textContent="● CAMERA LIVE";
-$("liveBadge").className="liveBadge good";
+
+$("waiting").classList.add(
+"hidden"
+);
+
+$("liveDot").classList.add(
+"live"
+);
+
+$("cameraText").textContent =
+"Camera Live";
+
+$("liveBadge").textContent =
+"● CAMERA LIVE";
+
+$("liveBadge").className =
+"liveBadge good";
+
 
 resizeCanvas();
 
 }
 
 
+
 /* LOAD MEDIAPIPE */
 
 async function importMediaPipe(){
 
-let firstError=null;
+let firstError =
+null;
+
 
 try{
-return await import(CDN_1);
+
+return await import(
+CDN_1
+);
+
 }catch(error){
-firstError=error;
-console.warn("Primary MediaPipe CDN failed:",error);
+
+firstError =
+error;
+
+console.warn(
+"Primary MediaPipe CDN failed:",
+error
+);
+
 }
 
+
 try{
-return await import(CDN_2);
+
+return await import(
+CDN_2
+);
+
 }catch(error){
-console.warn("Fallback MediaPipe CDN failed:",error);
+
+console.warn(
+"Fallback MediaPipe CDN failed:",
+error
+);
+
 
 throw new Error(
+
 "MediaPipe library download nahi ho rahi. "+
 "Internet connection/firewall check karo. "+
-"Original error: "+(firstError?.message||"unknown")
+"Original error: "+
+(
+firstError?.message ||
+"unknown"
+)
+
 );
 
 }
@@ -1078,14 +1647,22 @@ throw new Error(
 }
 
 
+
 /* CREATE AI */
 
 async function loadAI(){
 
-if(faceLandmarker)return true;
-if(loadingAI)return false;
+if(faceLandmarker)
+return true;
 
-loadingAI=true;
+
+if(loadingAI)
+return false;
+
+
+loadingAI =
+true;
+
 
 setStatus(
 "Loading AI",
@@ -1093,39 +1670,82 @@ setStatus(
 "⚙️"
 );
 
+
 try{
 
-const vision=await importMediaPipe();
+const vision =
+await importMediaPipe();
 
-const FilesetResolver=vision.FilesetResolver;
-const FaceLandmarker=vision.FaceLandmarker;
 
-if(!FilesetResolver||!FaceLandmarker){
-throw new Error("FaceLandmarker library me available nahi hai.");
-}
+const FilesetResolver =
+vision.FilesetResolver;
 
-const fileset=
-await FilesetResolver.forVisionTasks(WASM_URL);
+const FaceLandmarker =
+vision.FaceLandmarker;
 
-faceLandmarker=
-await FaceLandmarker.createFromOptions(
-fileset,
-{
-baseOptions:{
-modelAssetPath:MODEL_URL,
-delegate:"CPU"
-},
-runningMode:"VIDEO",
-numFaces:1,
-minFaceDetectionConfidence:.4,
-minFacePresenceConfidence:.4,
-minTrackingConfidence:.4
-}
+
+if(
+!FilesetResolver ||
+!FaceLandmarker
+){
+
+throw new Error(
+"FaceLandmarker library me available nahi hai."
 );
 
-loadingAI=false;
+}
 
-$("faceBadge").textContent="AI Ready";
+
+const fileset =
+await FilesetResolver.forVisionTasks(
+WASM_URL
+);
+
+
+faceLandmarker =
+await FaceLandmarker.createFromOptions(
+
+fileset,
+
+{
+
+baseOptions:{
+
+modelAssetPath:
+MODEL_URL,
+
+delegate:
+"CPU"
+
+},
+
+runningMode:
+"VIDEO",
+
+numFaces:
+1,
+
+minFaceDetectionConfidence:
+.4,
+
+minFacePresenceConfidence:
+.4,
+
+minTrackingConfidence:
+.4
+
+}
+
+);
+
+
+loadingAI =
+false;
+
+
+$("faceBadge").textContent =
+"AI Ready";
+
 
 setStatus(
 "Monitoring Ready",
@@ -1133,25 +1753,40 @@ setStatus(
 "👁️"
 );
 
+
 return true;
+
 
 }catch(error){
 
-console.error("FINAL AI ERROR:",error);
+console.error(
+"FINAL AI ERROR:",
+error
+);
 
-faceLandmarker=null;
-loadingAI=false;
+
+faceLandmarker =
+null;
+
+loadingAI =
+false;
+
 
 showError(
+
 "AI load nahi hua. Camera ko intentionally ON rakha gaya hai. "+
-"Technical error: "+(error.message||error)
+"Technical error: "+
+(error.message || error)
+
 );
+
 
 setStatus(
 "AI Offline",
 "Camera live hai, lekin eye detection unavailable hai.",
 "⚠️"
 );
+
 
 return false;
 
@@ -1160,63 +1795,167 @@ return false;
 }
 
 
+
 /* EYE DETECTION */
 
 function distance(a,b){
-const dx=a.x-b.x;
-const dy=a.y-b.y;
-return Math.sqrt(dx*dx+dy*dy);
-}
 
-function eyeRatio(points,indexes){
+const dx =
+a.x-b.x;
 
-const vertical1=distance(points[indexes[1]],points[indexes[5]]);
-const vertical2=distance(points[indexes[2]],points[indexes[4]]);
-const horizontal=distance(points[indexes[0]],points[indexes[3]]);
+const dy =
+a.y-b.y;
 
-if(horizontal===0)return 0;
-
-return(vertical1+vertical2)/(2*horizontal);
+return Math.sqrt(
+dx*dx + dy*dy
+);
 
 }
+
+
+function eyeRatio(
+points,
+indexes
+){
+
+const vertical1 =
+distance(
+points[indexes[1]],
+points[indexes[5]]
+);
+
+
+const vertical2 =
+distance(
+points[indexes[2]],
+points[indexes[4]]
+);
+
+
+const horizontal =
+distance(
+points[indexes[0]],
+points[indexes[3]]
+);
+
+
+if(horizontal === 0)
+return 0;
+
+
+return(
+vertical1 +
+vertical2
+)/
+(2*horizontal);
+
+}
+
 
 function getEyeState(points){
 
-const left=eyeRatio(points,[33,160,158,133,153,144]);
-const right=eyeRatio(points,[362,385,387,263,373,380]);
-const average=(left+right)/2;
+const left =
+eyeRatio(
+points,
+[33,160,158,133,153,144]
+);
+
+
+const right =
+eyeRatio(
+points,
+[362,385,387,263,373,380]
+);
+
+
+const average =
+(left+right)/2;
+
 
 return{
-ear:average,
-closed:average<.20
+
+ear:
+average,
+
+closed:
+average < .20
+
 };
 
 }
 
 
+
 /* DRAW */
 
-function drawEyes(points,closed){
+function drawEyes(
+points,
+closed
+){
 
-ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
 
-const indexes=[
-33,160,158,133,153,144,
-362,385,387,263,373,380
+
+const indexes = [
+
+33,
+160,
+158,
+133,
+153,
+144,
+
+362,
+385,
+387,
+263,
+373,
+380
+
 ];
 
-ctx.fillStyle=closed?"#ef4444":"#22c55e";
 
-for(const index of indexes){
+ctx.fillStyle =
+closed ?
+"#ef4444" :
+"#22c55e";
 
-const p=points[index];
-if(!p)continue;
 
-const x=(1-p.x)*canvas.width;
-const y=p.y*canvas.height;
+for(
+const index of indexes
+){
+
+const p =
+points[index];
+
+if(!p)
+continue;
+
+
+const x =
+(1-p.x) *
+canvas.width;
+
+const y =
+p.y *
+canvas.height;
+
 
 ctx.beginPath();
-ctx.arc(x,y,4,0,Math.PI*2);
+
+ctx.arc(
+x,
+y,
+4,
+0,
+Math.PI*2
+);
+
 ctx.fill();
 
 }
@@ -1224,130 +1963,248 @@ ctx.fill();
 }
 
 
+
 /* DETECTION */
 
 function detect(){
 
-if(!running||!faceLandmarker||video.readyState<2)return;
+if(
+!running ||
+!faceLandmarker ||
+video.readyState < 2
+)
+return;
+
 
 try{
 
-const result=
+const result =
 faceLandmarker.detectForVideo(
 video,
 performance.now()
 );
 
-if(result.faceLandmarks&&result.faceLandmarks.length>0){
 
-const points=result.faceLandmarks[0];
-const state=getEyeState(points);
+if(
+result.faceLandmarks &&
+result.faceLandmarks.length > 0
+){
 
-$("faceBadge").textContent="Face Detected";
-$("confidence").textContent="95%+";
-$("eyeState").textContent=state.closed?"CLOSED":"OPEN";
+const points =
+result.faceLandmarks[0];
 
-$("eyeState").style.color=
-state.closed?"#f87171":"#4ade80";
 
-drawEyes(points,state.closed);
-processEyes(state.closed);
+const state =
+getEyeState(points);
+
+
+$("faceBadge").textContent =
+"Face Detected";
+
+
+$("confidence").textContent =
+"95%+";
+
+
+$("eyeState").textContent =
+state.closed ?
+"CLOSED" :
+"OPEN";
+
+
+$("eyeState").style.color =
+state.closed ?
+"#f87171" :
+"#4ade80";
+
+
+drawEyes(
+points,
+state.closed
+);
+
+
+processEyes(
+state.closed
+);
+
 
 }else{
 
-$("faceBadge").textContent="No Face";
-$("confidence").textContent="0%";
-$("eyeState").textContent="Unknown";
+$("faceBadge").textContent =
+"No Face";
 
-ctx.clearRect(0,0,canvas.width,canvas.height);
+$("confidence").textContent =
+"0%";
+
+$("eyeState").textContent =
+"Unknown";
+
+
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
 
 }
+
 
 }catch(error){
-console.warn("Frame detection error:",error);
+
+console.warn(
+"Frame detection error:",
+error
+);
+
 }
 
 }
+
 
 
 /* EYE PROCESSING */
 
-function processEyes(closed){
+function processEyes(
+closed
+){
 
 if(closed){
 
 if(!eyesClosed){
 
-eyesClosed=true;
-closedStart=performance.now();
+eyesClosed =
+true;
+
+closedStart =
+performance.now();
+
 closedEventCounter++;
 
-$("closedEvents").textContent=closedEventCounter;
+
+$("closedEvents").textContent =
+closedEventCounter;
 
 }
 
-const duration=(performance.now()-closedStart)/1000;
 
-$("closedDuration").textContent=duration.toFixed(1)+"s";
-$("alertTime").textContent=duration.toFixed(1)+"s";
+const duration =
+(
+performance.now() -
+closedStart
+)/1000;
 
-const progress=Math.min(
+
+$("closedDuration").textContent =
+duration.toFixed(1) +
+"s";
+
+
+$("alertTime").textContent =
+duration.toFixed(1) +
+"s";
+
+
+const progress =
+Math.min(
 100,
 (duration/alertDelay)*100
 );
 
-$("progressBar").style.width=progress+"%";
 
-if(duration>longestClose){
+$("progressBar").style.width =
+progress +
+"%";
 
-longestClose=duration;
-$("longestClose").textContent=
-longestClose.toFixed(1)+"s";
+
+if(
+duration > longestClose
+){
+
+longestClose =
+duration;
+
+
+$("longestClose").textContent =
+longestClose.toFixed(1) +
+"s";
 
 }
 
-if(duration>=alertDelay&&!alertActive){
+
+if(
+duration >= alertDelay &&
+!alertActive
+){
+
 showAlert();
+
 }
+
 
 }else{
 
-eyesClosed=false;
+eyesClosed =
+false;
 
-$("closedDuration").textContent="0.0s";
-$("alertTime").textContent="0.0s";
-$("progressBar").style.width="0%";
 
-if(alertActive)hideAlert();
+$("closedDuration").textContent =
+"0.0s";
+
+$("alertTime").textContent =
+"0.0s";
+
+$("progressBar").style.width =
+"0%";
+
+
+if(alertActive)
+hideAlert();
 
 }
 
 }
+
 
 
 /* LOOP */
 
 function loop(){
 
-if(!running)return;
+if(!running)
+return;
+
 
 detect();
 
-animationId=requestAnimationFrame(loop);
+
+animationId =
+requestAnimationFrame(
+loop
+);
 
 }
+
 
 
 /* START */
 
 async function startMonitoring(){
 
-if(running)return;
+if(running)
+return;
+
 
 clearError();
 
-$("startBtn").disabled=true;
-$("stopBtn").disabled=false;
+
+$("startBtn").disabled =
+true;
+
+$("stopBtn").disabled =
+false;
+
 
 try{
 
@@ -1357,14 +2214,24 @@ setStatus(
 "📷"
 );
 
+
 await openCamera();
+
 
 }catch(error){
 
-$("startBtn").disabled=false;
-$("stopBtn").disabled=true;
+$("startBtn").disabled =
+false;
 
-showError("Camera error: "+(error.message||error));
+$("stopBtn").disabled =
+true;
+
+
+showError(
+"Camera error: "+
+(error.message || error)
+);
+
 
 setStatus(
 "Camera Error",
@@ -1372,27 +2239,49 @@ setStatus(
 "⚠️"
 );
 
+
 return;
 
 }
 
-const ready=await loadAI();
+
+const ready =
+await loadAI();
+
 
 if(!ready){
 
-$("startBtn").disabled=false;
-$("stopBtn").disabled=false;
+$("startBtn").disabled =
+false;
+
+$("stopBtn").disabled =
+false;
+
 return;
 
 }
 
-running=true;
-sessionStart=Date.now();
 
-sessionTimer=setInterval(updateSession,1000);
+running =
+true;
 
-$("liveBadge").textContent="● AI MONITORING";
-$("liveBadge").className="liveBadge good";
+sessionStart =
+Date.now();
+
+
+sessionTimer =
+setInterval(
+updateSession,
+1000
+);
+
+
+$("liveBadge").textContent =
+"● AI MONITORING";
+
+$("liveBadge").className =
+"liveBadge good";
+
 
 setStatus(
 "Monitoring",
@@ -1400,40 +2289,76 @@ setStatus(
 "👀"
 );
 
+
 loop();
 
 }
+
 
 
 /* STOP */
 
 function stopMonitoring(){
 
-running=false;
+running =
+false;
+
 
 if(animationId){
-cancelAnimationFrame(animationId);
-animationId=null;
+
+cancelAnimationFrame(
+animationId
+);
+
+animationId =
+null;
+
 }
+
 
 if(sessionTimer){
-clearInterval(sessionTimer);
-sessionTimer=null;
+
+clearInterval(
+sessionTimer
+);
+
+sessionTimer =
+null;
+
 }
 
+
 stopCamera();
+
 hideAlert();
 
-eyesClosed=false;
 
-$("closedDuration").textContent="0.0s";
-$("progressBar").style.width="0%";
-$("eyeState").textContent="Unknown";
-$("confidence").textContent="0%";
-$("faceBadge").textContent="Stopped";
+eyesClosed =
+false;
 
-$("startBtn").disabled=false;
-$("stopBtn").disabled=true;
+
+$("closedDuration").textContent =
+"0.0s";
+
+$("progressBar").style.width =
+"0%";
+
+$("eyeState").textContent =
+"Unknown";
+
+$("confidence").textContent =
+"0%";
+
+$("faceBadge").textContent =
+"Stopped";
+
+
+$("startBtn").disabled =
+false;
+
+$("stopBtn").disabled =
+true;
+
 
 setStatus(
 "Stopped",
@@ -1444,62 +2369,125 @@ setStatus(
 }
 
 
+
 /* STOP CAMERA */
 
 function stopCamera(){
 
 if(stream){
 
-stream.getTracks().forEach(track=>track.stop());
-stream=null;
+stream
+.getTracks()
+.forEach(
+track =>
+track.stop()
+);
+
+stream =
+null;
 
 }
 
-video.srcObject=null;
 
-$("waiting").classList.remove("hidden");
-$("liveDot").classList.remove("live");
-$("cameraText").textContent="Camera Offline";
-$("liveBadge").textContent="SYSTEM STANDBY";
-$("liveBadge").className="liveBadge";
+video.srcObject =
+null;
 
-ctx.clearRect(0,0,canvas.width,canvas.height);
+
+$("waiting").classList.remove(
+"hidden"
+);
+
+
+$("liveDot").classList.remove(
+"live"
+);
+
+
+$("cameraText").textContent =
+"Camera Offline";
+
+
+$("liveBadge").textContent =
+"SYSTEM STANDBY";
+
+$("liveBadge").className =
+"liveBadge";
+
+
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
 
 }
+
 
 
 /* TIMER */
 
 function updateSession(){
 
-if(!sessionStart)return;
+if(!sessionStart)
+return;
 
-const seconds=(Date.now()-sessionStart)/1000;
 
-const minutes=String(
+const seconds =
+(Date.now()-sessionStart)/
+1000;
+
+
+const minutes =
+String(
 Math.floor(seconds/60)
-).padStart(2,"0");
+).padStart(
+2,
+"0"
+);
 
-const secs=String(
+
+const secs =
+String(
 Math.floor(seconds%60)
-).padStart(2,"0");
+).padStart(
+2,
+"0"
+);
 
-$("sessionTime").textContent=minutes+":"+secs;
+
+$("sessionTime").textContent =
+minutes +
+":" +
+secs;
 
 }
+
 
 
 /* ALERT */
 
 function showAlert(){
 
-if(alertActive)return;
+if(alertActive)
+return;
 
-alertActive=true;
+
+alertActive =
+true;
+
+
 alertCounter++;
 
-$("alertCount").textContent=alertCounter;
-$("alert").classList.add("show");
+
+$("alertCount").textContent =
+alertCounter;
+
+
+$("alert").classList.add(
+"show"
+);
+
 
 setStatus(
 "ALERT ACTIVE",
@@ -1507,15 +2495,26 @@ setStatus(
 "🚨"
 );
 
-if(soundEnabled)startSiren();
+
+if(soundEnabled)
+startSiren();
 
 }
 
+
 function hideAlert(){
 
-alertActive=false;
-$("alert").classList.remove("show");
+alertActive =
+false;
+
+
+$("alert").classList.remove(
+"show"
+);
+
+
 stopSiren();
+
 
 if(running){
 
@@ -1530,74 +2529,145 @@ setStatus(
 }
 
 
+
 /* SIREN */
 
 function startSiren(){
 
-if(!soundEnabled||audioContext)return;
+if(
+!soundEnabled ||
+audioContext
+)
+return;
+
 
 try{
 
-audioContext=
+audioContext =
 new(
-window.AudioContext||
+window.AudioContext ||
 window.webkitAudioContext
 )();
 
-oscillator=audioContext.createOscillator();
-gainNode=audioContext.createGain();
 
-oscillator.type="square";
-gainNode.gain.value=.05;
+oscillator =
+audioContext.createOscillator();
 
-oscillator.connect(gainNode);
-gainNode.connect(audioContext.destination);
+
+gainNode =
+audioContext.createGain();
+
+
+oscillator.type =
+"square";
+
+
+gainNode.gain.value =
+.05;
+
+
+oscillator.connect(
+gainNode
+);
+
+gainNode.connect(
+audioContext.destination
+);
+
 
 oscillator.start();
 
-let high=false;
 
-sirenInterval=setInterval(function(){
+let high =
+false;
 
-if(!oscillator||!audioContext)return;
 
-high=!high;
+sirenInterval =
+setInterval(
+
+function(){
+
+if(
+!oscillator ||
+!audioContext
+)
+return;
+
+
+high =
+!high;
+
 
 oscillator.frequency.setValueAtTime(
-high?850:500,
+
+high ?
+850 :
+500,
+
 audioContext.currentTime
+
 );
 
-},300);
+},
+
+300
+
+);
+
 
 }catch(error){
 
-console.warn("Audio unavailable:",error);
+console.warn(
+"Audio unavailable:",
+error
+);
 
 }
 
 }
+
 
 function stopSiren(){
 
 if(sirenInterval){
-clearInterval(sirenInterval);
-sirenInterval=null;
-}
 
-try{
-if(oscillator)oscillator.stop();
-}catch(e){}
+clearInterval(
+sirenInterval
+);
 
-try{
-if(audioContext)audioContext.close();
-}catch(e){}
-
-oscillator=null;
-gainNode=null;
-audioContext=null;
+sirenInterval =
+null;
 
 }
+
+
+try{
+
+if(oscillator)
+oscillator.stop();
+
+}catch(e){}
+
+
+try{
+
+if(audioContext)
+audioContext.close();
+
+}catch(e){}
+
+
+oscillator =
+null;
+
+gainNode =
+null;
+
+audioContext =
+null;
+
+}
+
 
 
 /* BUTTONS */
@@ -1607,40 +2677,68 @@ $("startBtn").addEventListener(
 startMonitoring
 );
 
+
 $("stopBtn").addEventListener(
 "click",
 stopMonitoring
 );
 
+
 $("testBtn").addEventListener(
 "click",
+
 function(){
+
 clearError();
+
 showAlert();
+
 }
+
 );
+
 
 $("closeAlert").addEventListener(
 "click",
 hideAlert
 );
 
+
+/* RESET */
+
 $("resetBtn").addEventListener(
 "click",
+
 function(){
 
 stopMonitoring();
 
-alertCounter=0;
-closedEventCounter=0;
-longestClose=0;
 
-$("alertCount").textContent="0";
-$("closedEvents").textContent="0";
-$("longestClose").textContent="0.0s";
-$("sessionTime").textContent="00:00";
+alertCounter =
+0;
+
+closedEventCounter =
+0;
+
+longestClose =
+0;
+
+
+$("alertCount").textContent =
+"0";
+
+$("closedEvents").textContent =
+"0";
+
+$("longestClose").textContent =
+"0.0s";
+
+$("sessionTime").textContent =
+"00:00";
+
 
 clearError();
+
 
 setStatus(
 "Ready",
@@ -1649,10 +2747,88 @@ setStatus(
 );
 
 }
+
 );
 
 
-/* LOCATION BUTTON */
+
+/* SESSION REPORT — NEW FEATURE */
+
+$("reportBtn").addEventListener(
+"click",
+
+function(){
+
+const report = `EyeGuard AI — SESSION REPORT
+Created by MANNU
+================================
+
+Session Time: ${$("sessionTime").textContent}
+Total Alerts: ${$("alertCount").textContent}
+Closed Eye Events: ${$("closedEvents").textContent}
+Longest Eye Closure: ${$("longestClose").textContent}
+Alert Delay: ${alertDelay.toFixed(1)}s
+Siren Sound: ${soundEnabled ? "Enabled" : "Disabled"}
+Face Guide: ${$("guideToggle").checked ? "Enabled" : "Disabled"}
+Location: ${$("locationPlace").textContent}
+
+================================
+Generated by EyeGuard AI
+Made by MANNU
+`;
+
+const blob =
+new Blob(
+[report],
+{
+type:
+"text/plain"
+}
+);
+
+
+const url =
+URL.createObjectURL(
+blob
+);
+
+
+const link =
+document.createElement(
+"a"
+);
+
+
+link.href =
+url;
+
+
+link.download =
+"EyeGuard-AI-Session-Report.txt";
+
+
+document.body.appendChild(
+link
+);
+
+
+link.click();
+
+
+link.remove();
+
+
+URL.revokeObjectURL(
+url
+);
+
+}
+
+);
+
+
+
+/* LOCATION */
 
 $("locationBtn").addEventListener(
 "click",
@@ -1660,40 +2836,60 @@ requestLocation
 );
 
 
+
 /* SETTINGS */
 
 $("delayRange").addEventListener(
 "input",
+
 function(){
 
-alertDelay=Number(this.value);
+alertDelay =
+Number(
+this.value
+);
 
-$("delayText").textContent=
-alertDelay.toFixed(1)+"s";
+
+$("delayText").textContent =
+alertDelay.toFixed(1) +
+"s";
 
 }
+
 );
+
 
 $("soundToggle").addEventListener(
 "change",
+
 function(){
 
-soundEnabled=this.checked;
+soundEnabled =
+this.checked;
 
-if(!soundEnabled)stopSiren();
+
+if(!soundEnabled)
+stopSiren();
 
 }
+
 );
+
 
 $("guideToggle").addEventListener(
 "change",
+
 function(){
 
-$("faceGuide").style.display=
-this.checked?"block":"none";
+$("faceGuide").style.display =
+this.checked ?
+"block" :
+"none";
 
 }
+
 );
+
 
 
 /* CANVAS */
@@ -1702,22 +2898,30 @@ function resizeCanvas(){
 
 if(video.videoWidth){
 
-canvas.width=video.videoWidth;
-canvas.height=video.videoHeight;
+canvas.width =
+video.videoWidth;
+
+canvas.height =
+video.videoHeight;
 
 }else{
 
-canvas.width=1280;
-canvas.height=720;
+canvas.width =
+1280;
+
+canvas.height =
+720;
 
 }
 
 }
+
 
 video.addEventListener(
 "loadedmetadata",
 resizeCanvas
 );
+
 
 window.addEventListener(
 "resize",
@@ -1725,17 +2929,26 @@ resizeCanvas
 );
 
 
+
 /* INITIAL */
 
-$("delayText").textContent="3.0s";
+$("delayText").textContent =
+"3.0s";
 
-$("startBtn").disabled=false;
-$("stopBtn").disabled=true;
+
+$("startBtn").disabled =
+false;
+
+
+$("stopBtn").disabled =
+true;
+
 
 
 /* LOCATION ON PAGE LOAD */
 
 requestLocation();
+
 
 console.log(
 "EyeGuard AI — Created by MANNU"
@@ -1745,3 +2958,4 @@ console.log(
 
 </body>
 </html>
+```
