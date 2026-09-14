@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="MANNU">
+<meta name="description" content="EyeGuard AI - Real-time eye monitoring dashboard created by MANNU">
+<title>EyeGuard AI — Made by MANNU</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#07111f;
+color:#eef6ff;
+min-height:100vh
+}
+
+button{font:inherit;cursor:pointer}
+
+.app{
+max-width:1400px;
+margin:auto;
+padding:22px
+}
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+margin-bottom:22px
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:12px
+}
+
+.logoIcon{
+width:48px;
+height:48px;
+border-radius:14px;
+background:#123252;
+display:grid;
+place-items:center;
+font-size:25px
+}
+
+.logo h1{font-size:24px}
+.logo p{font-size:13px;color:#8fa7bd;margin-top:4px}
+
+.creator{
+display:inline-block;
+margin-top:5px;
+font-size:11px;
+font-weight:bold;
+letter-spacing:.5px;
+color:#4ade80
+}
+
+.topStatus{
+display:flex;
+align-items:center;
+gap:8px;
+padding:10px 14px;
+border:1px solid #20364d;
+border-radius:12px;
+background:#0c1b2c;
+font-size:13px;
+color:#9eb3c8
+}
+
+.dot{
+width:9px;
+height:9px;
+border-radius:50%;
+background:#64748b
+}
+
+.dot.live{
+background:#22c55e;
+box-shadow:0 0 12px #22c55e
+}
+
+.grid{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:20px
+}
+
+.card{
+background:#0b1929;
+border:1px solid #1d344b;
+border-radius:18px;
+overflow:hidden
+}
+
+.cardHead{
+padding:16px 18px;
+border-bottom:1px solid #1d344b;
+display:flex;
+justify-content:space-between;
+align-items:center
+}
+
+.cardHead h2{font-size:16px}
+.cardHead span{font-size:12px;color:#7890a6}
+
+.camera{
+position:relative;
+background:#02070d;
+min-height:460px;
+overflow:hidden
+}
+
+#video{
+width:100%;
+height:460px;
+object-fit:cover;
+display:block;
+transform:scaleX(-1);
+background:#02070d
+}
+
+#canvas{
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:3
+}
+
+.waiting{
+position:absolute;
+inset:0;
+z-index:4;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:8px;
+background:rgba(2,7,13,.75);
+color:#9eb3c8
+}
+
+.waiting.hidden{display:none}
+
+.waiting strong{
+color:white;
+font-size:17px
+}
+
+.faceGuide{
+position:absolute;
+z-index:2;
+width:220px;
+height:300px;
+left:50%;
+top:50%;
+transform:translate(-50%,-50%);
+border:2px dashed rgba(80,180,255,.5);
+border-radius:50%;
+pointer-events:none
+}
+
+.liveBadge{
+position:absolute;
+z-index:7;
+top:14px;
+left:14px;
+padding:8px 11px;
+border-radius:10px;
+background:rgba(5,15,25,.9);
+border:1px solid #27435d;
+font-size:12px
+}
+
+.liveBadge.good{color:#4ade80}
+.liveBadge.bad{color:#f87171}
+
+.cameraBottom{
+position:absolute;
+z-index:7;
+left:14px;
+right:14px;
+bottom:14px;
+display:flex;
+justify-content:space-between
+}
+
+.statusPill{
+padding:10px 13px;
+background:rgba(5,15,25,.92);
+border:1px solid #27435d;
+border-radius:11px
+}
+
+.statusPill small{
+display:block;
+font-size:10px;
+color:#7890a6;
+margin-bottom:4px
+}
+
+.statusPill b{font-size:13px}
+
+.controls{
+padding:16px;
+display:flex;
+gap:10px;
+flex-wrap:wrap
+}
+
+.btn{
+border:1px solid #294967;
+border-radius:10px;
+padding:11px 16px;
+font-weight:bold;
+color:white;
+background:#173453
+}
+
+.btn:hover{background:#214769}
+
+.btn.primary{
+background:#087f5b;
+border-color:#0ca678
+}
+
+.btn.primary:hover{background:#099268}
+
+.btn.danger{
+background:#8b2635;
+border-color:#b83248
+}
+
+.btn.danger:hover{background:#a52d40}
+
+.btn:disabled{
+opacity:.45;
+cursor:not-allowed
+}
+
+.errorBox{
+display:none;
+margin:0 16px 16px;
+padding:13px;
+border-radius:10px;
+background:#35131a;
+border:1px solid #7f1d2d;
+color:#fecdd3;
+font-size:12px;
+line-height:1.5
+}
+
+.errorBox.show{display:block}
+
+.progressWrap{
+padding:0 18px 18px
+}
+
+.progressTop{
+display:flex;
+justify-content:space-between;
+font-size:11px;
+color:#7890a6;
+margin-bottom:7px
+}
+
+.progress{
+height:8px;
+background:#142638;
+border-radius:20px;
+overflow:hidden
+}
+
+#progressBar{
+width:0%;
+height:100%;
+background:#ef4444;
+transition:width .1s linear
+}
+
+.side{
+display:flex;
+flex-direction:column;
+gap:20px
+}
+
+.bigStatus{
+padding:22px;
+text-align:center
+}
+
+.bigStatus .icon{
+font-size:40px;
+margin-bottom:10px
+}
+
+.bigStatus h2{
+font-size:21px;
+margin-bottom:6px
+}
+
+.bigStatus p{
+font-size:13px;
+color:#8fa7bd
+}
+
+.stats{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+padding:14px
+}
+
+.stat{
+background:#0f2236;
+border:1px solid #203b55;
+border-radius:12px;
+padding:13px
+}
+
+.stat small{
+display:block;
+font-size:10px;
+color:#7890a6;
+margin-bottom:5px
+}
+
+.stat b{font-size:19px}
+
+.setting{
+padding:14px 16px;
+border-bottom:1px solid #1d344b
+}
+
+.setting:last-child{border-bottom:0}
+
+.settingRow{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:15px
+}
+
+.settingTitle{
+font-size:13px;
+font-weight:bold
+}
+
+.settingDesc{
+font-size:11px;
+color:#71879c;
+margin-top:4px
+}
+
+input[type=range]{width:120px}
+
+.switch{
+position:relative;
+width:44px;
+height:24px;
+flex:none
+}
+
+.switch input{display:none}
+
+.slider{
+position:absolute;
+inset:0;
+background:#26394b;
+border-radius:30px;
+cursor:pointer
+}
+
+.slider:before{
+content:"";
+position:absolute;
+width:18px;
+height:18px;
+left:3px;
+top:3px;
+background:white;
+border-radius:50%;
+transition:.2s
+}
+
+.switch input:checked+.slider{
+background:#0ca678
+}
+
+.switch input:checked+.slider:before{
+transform:translateX(20px)
+}
+
+.locationBox{
+padding:16px
+}
+
+.locationStatus{
+display:flex;
+align-items:center;
+gap:8px;
+font-size:13px;
+font-weight:bold;
+margin-bottom:12px
+}
+
+.locationDot{
+width:9px;
+height:9px;
+border-radius:50%;
+background:#64748b
+}
+
+.locationDot.good{
+background:#22c55e;
+box-shadow:0 0 10px #22c55e
+}
+
+.locationDot.bad{
+background:#ef4444
+}
+
+.locationInfo{
+display:grid;
+gap:8px
+}
+
+.locationRow{
+background:#0f2236;
+border:1px solid #203b55;
+border-radius:10px;
+padding:12px
+}
+
+.locationRow small{
+display:block;
+font-size:10px;
+color:#7890a6;
+margin-bottom:5px
+}
+
+.locationRow b{
+font-size:14px;
+word-break:break-word;
+color:#eef6ff
+}
+
+.locationButton{
+margin-top:12px;
+width:100%
+}
+
+.alert{
+position:fixed;
+inset:0;
+z-index:1000;
+display:none;
+align-items:center;
+justify-content:center;
+background:rgba(0,0,0,.75);
+pointer-events:none
+}
+
+.alert.show{
+display:flex;
+pointer-events:auto
+}
+
+.alertBox{
+width:min(450px,90vw);
+background:#180d12;
+border:2px solid #ef4444;
+border-radius:20px;
+padding:30px;
+text-align:center;
+box-shadow:0 0 50px rgba(239,68,68,.25)
+}
+
+.alertIcon{
+font-size:50px;
+margin-bottom:10px
+}
+
+.alertBox h1{
+color:#f87171;
+margin-bottom:10px
+}
+
+.alertBox p{
+color:#cbd5e1;
+font-size:13px;
+line-height:1.5
+}
+
+.alertTime{
+margin:16px 0;
+color:#fca5a5;
+font-weight:bold
+}
+
+footer{
+text-align:center;
+font-size:11px;
+color:#50677d;
+margin-top:20px;
+padding-bottom:8px
+}
+
+.footerBrand{
+color:#4ade80;
+font-weight:bold
+}
+
+@media(max-width:900px){
+.grid{grid-template-columns:1fr}
+header{
+flex-direction:column;
+align-items:flex-start
+}
+}
+
+@media(max-width:600px){
+.app{padding:12px}
+#video{height:350px}
+.camera{min-height:350px}
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+
+<div class="logo">
+
+<div class="logoIcon">👁️</div>
+
+<div>
+<h1>EyeGuard AI</h1>
+<p>Real-time eye monitoring dashboard</p>
+<span class="creator">CREATED BY MANNU</span>
+</div>
+
+</div>
+
+<div class="topStatus">
+<span id="liveDot" class="dot"></span>
+<span id="cameraText">Camera Offline</span>
+</div>
+
+</header>
+
+<div class="grid">
+
+<section class="card">
+
+<div class="cardHead">
+<h2>Live Eye Monitor</h2>
+<span id="faceBadge">Waiting</span>
+</div>
+
+<div class="camera">
+
+<video id="video" autoplay muted playsinline></video> <canvas id="canvas"></canvas>
+
+<div id="faceGuide" class="faceGuide"></div>
+
+<div id="waiting" class="waiting">
+<strong>Camera waiting</strong>
+<span>Click Start Monitoring</span>
+</div>
+
+<div id="liveBadge" class="liveBadge">
+SYSTEM STANDBY
+</div>
+
+<div class="cameraBottom">
+
+<div class="statusPill">
+<small>EYE STATE</small>
+<b id="eyeState">Unknown</b>
+</div>
+
+<div class="statusPill">
+<small>CONFIDENCE</small>
+<b id="confidence">0%</b>
+</div>
+
+</div>
+
+</div>
+
+<div class="controls">
+
+<button id="startBtn" class="btn primary">
+▶ Start Monitoring
+</button>
+
+<button id="stopBtn" class="btn danger" disabled>
+■ Stop Monitoring
+</button>
+
+<button id="testBtn" class="btn">
+🔔 Test Alert
+</button>
+
+<button id="resetBtn" class="btn">
+↻ Reset
+</button>
+
+</div>
+
+<div id="errorBox" class="errorBox"></div>
+
+<div class="progressWrap">
+
+<div class="progressTop">
+<span>Eyes closed duration</span>
+<span id="closedDuration">0.0s</span>
+</div>
+
+<div class="progress">
+<div id="progressBar"></div>
+</div>
+
+</div>
+
+</section>
+
+<aside class="side">
+
+<section class="card bigStatus">
+
+<div id="bigIcon" class="icon">👀</div>
+
+<h2 id="bigStatus">Ready</h2>
+
+<p id="description">
+Start monitoring to activate eye detection.
+</p>
+
+</section>
+
+<section class="card">
+
+<div class="cardHead">
+<h2>Session Analytics</h2>
+<span>Live</span>
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<small>SESSION TIME</small>
+<b id="sessionTime">00:00</b>
+</div>
+
+<div class="stat">
+<small>ALERTS</small>
+<b id="alertCount">0</b>
+</div>
+
+<div class="stat">
+<small>CLOSED EVENTS</small>
+<b id="closedEvents">0</b>
+</div>
+
+<div class="stat">
+<small>LONGEST CLOSE</small>
+<b id="longestClose">0.0s</b>
+</div>
+
+</div>
+
+</section>
+
+<section class="card">
+
+<div class="cardHead">
+<h2>Location</h2>
+<span id="locationHeader">Permission</span>
+</div>
+
+<div class="locationBox">
+
+<div class="locationStatus">
+<span id="locationDot" class="locationDot"></span>
+<span id="locationStatus">Requesting location...</span>
+</div>
+
+<div class="locationInfo">
+
+<div class="locationRow">
+<small>📍 CURRENT LOCATION</small>
+<b id="locationPlace">Detecting...</b>
+</div>
+
+</div>
+
+<button id="locationBtn" class="btn locationButton">
+📍 Allow Location
+</button>
+
+</div>
+
+</section>
+
+<section class="card">
+
+<div class="cardHead">
+<h2>Settings</h2>
+<span>Control</span>
+</div>
+
+<div class="setting">
+
+<div class="settingRow">
+
+<div>
+<div class="settingTitle">Alert Delay</div>
+<div class="settingDesc">Alert after eyes stay closed</div>
+</div>
+
+<div>
+
+<input id="delayRange" type="range" min="1" max="10" step=".5" value="3">
+
+<div style="text-align:right;color:#8fa7bd;font-size:11px">
+<span id="delayText">3.0s</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="setting">
+
+<div class="settingRow">
+
+<div>
+<div class="settingTitle">Siren Sound</div>
+<div class="settingDesc">Play sound during alert</div>
+</div>
+
+<label class="switch">
+<input id="soundToggle" type="checkbox" checked>
+<span class="slider"></span>
+</label>
+
+</div>
+
+</div>
+
+<div class="setting">
+
+<div class="settingRow">
+
+<div>
+<div class="settingTitle">Face Guide</div>
+<div class="settingDesc">Show camera positioning guide</div>
+</div>
+
+<label class="switch">
+<input id="guideToggle" type="checkbox" checked>
+<span class="slider"></span>
+</label>
+
+</div>
+
+</div>
+
+</section>
+
+</aside>
+
+</div>
+
+<footer>
+EyeGuard AI • <span class="footerBrand">Made with ❤️ by MANNU</span> • Browser-based computer vision demo
+</footer>
+
+</div>
+
+<div id="alert" class="alert">
+
+<div class="alertBox">
+
+<div class="alertIcon">🚨</div>
+
+<h1>WAKE UP!</h1>
+
+<p>
+Eyes have remained closed for too long.
+Please open your eyes.
+</p>
+
+<div class="alertTime">
+Closed: <span id="alertTime">0.0s</span>
+</div>
+
+<button id="closeAlert" class="btn danger">
+Stop Alert
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+const $ = id => document.getElementById(id);
+
+const video = $("video");
+const canvas = $("canvas");
+const ctx = canvas.getContext("2d");
+
+let stream = null;
+let faceLandmarker = null;
+let running = false;
+let loadingAI = false;
+let animationId = null;
+let sessionTimer = null;
+let sessionStart = 0;
+let eyesClosed = false;
+let closedStart = 0;
+let alertActive = false;
+let alertDelay = 3;
+let soundEnabled = true;
+let alertCounter = 0;
+let closedEventCounter = 0;
+let longestClose = 0;
+let audioContext = null;
+let oscillator = null;
+let gainNode = null;
+let sirenInterval = null;
+let locationGranted = false;
+
+
+/* LOCATION */
+
+async function requestLocation(){
+
+if(!navigator.geolocation){
+
+$("locationStatus").textContent="Location unavailable";
+$("locationHeader").textContent="Unavailable";
+$("locationDot").className="locationDot bad";
+$("locationPlace").textContent="Not supported";
+$("locationBtn").textContent="📍 Try Again";
+$("locationBtn").disabled=false;
+return;
+
+}
+
+$("locationStatus").textContent="Detecting your location...";
+$("locationHeader").textContent="Detecting";
+$("locationPlace").textContent="Please wait...";
+$("locationDot").className="locationDot";
+$("locationBtn").disabled=true;
+
+navigator.geolocation.getCurrentPosition(
+
+async function(position){
+
+const lat=position.coords.latitude;
+const lon=position.coords.longitude;
+
+try{
+
+const response=await fetch(
+"https://api.bigdatacloud.net/data/reverse-geocode-client"+
+"?latitude="+encodeURIComponent(lat)+
+"&longitude="+encodeURIComponent(lon)+
+"&localityLanguage=en"
+);
+
+if(!response.ok) throw new Error("Location service unavailable");
+
+const data=await response.json();
+
+const city=
+data.city ||
+data.locality ||
+data.localityInfo?.administrative?.find(
+item=>item.adminLevel===7
+)?.name ||
+"Unknown City";
+
+const state=
+data.principalSubdivision ||
+data.localityInfo?.administrative?.find(
+item=>item.adminLevel===4
+)?.name ||
+"";
+
+const country=data.countryName || "";
+
+let locationText=city;
+
+if(state && state.toLowerCase()!==city.toLowerCase()){
+locationText+=", "+state;
+}
+
+if(country){
+locationText+=", "+country;
+}
+
+$("locationPlace").textContent=locationText;
+
+}catch(error){
+
+console.warn("Reverse geocoding error:",error);
+$("locationPlace").textContent="Location detected";
+
+}
+
+$("locationStatus").textContent="Location Enabled";
+$("locationHeader").textContent="Enabled";
+$("locationDot").className="locationDot good";
+$("locationBtn").textContent="✓ Location Enabled";
+$("locationBtn").disabled=true;
+locationGranted=true;
+
+},
+
+function(error){
+
+locationGranted=false;
+$("locationDot").className="locationDot bad";
+$("locationHeader").textContent="Permission";
+
+if(error.code===1){
+$("locationStatus").textContent="Location Permission Denied";
+$("locationPlace").textContent="Permission denied";
+}else if(error.code===2){
+$("locationStatus").textContent="Location Unavailable";
+$("locationPlace").textContent="Unavailable";
+}else if(error.code===3){
+$("locationStatus").textContent="Location Request Timed Out";
+$("locationPlace").textContent="Timed out";
+}else{
+$("locationStatus").textContent="Unable to get location";
+$("locationPlace").textContent="Unavailable";
+}
+
+$("locationBtn").textContent="📍 Try Again";
+$("locationBtn").disabled=false;
+
+},
+
+{
+enableHighAccuracy:true,
+timeout:10000,
+maximumAge:0
+}
+
+);
+
+}
+
+
+/* MEDIAPIPE */
+
+const MEDIA_PIPE_VERSION="1.0.1";
+
+const CDN_1=
+"https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@"+
+MEDIA_PIPE_VERSION+"/+esm";
+
+const CDN_2=
+"https://esm.sh/@mediapipe/tasks-vision@"+
+MEDIA_PIPE_VERSION;
+
+const WASM_URL=
+"https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@"+
+MEDIA_PIPE_VERSION+"/wasm";
+
+const MODEL_URL=
+"https://storage.googleapis.com/mediapipe-models/"+
+"face_landmarker/face_landmarker/float16/1/"+
+"face_landmarker.task";
+
+
+/* UI */
+
+function setStatus(title,text,icon){
+$("bigStatus").textContent=title;
+$("description").textContent=text;
+$("bigIcon").textContent=icon;
+}
+
+function showError(text){
+$("errorBox").textContent=text;
+$("errorBox").classList.add("show");
+}
+
+function clearError(){
+$("errorBox").textContent="";
+$("errorBox").classList.remove("show");
+}
+
+
+/* CAMERA */
+
+async function openCamera(){
+
+if(!navigator.mediaDevices ||
+!navigator.mediaDevices.getUserMedia){
+
+throw new Error("Camera API unavailable. Chrome ya Edge use karo.");
+
+}
+
+if(stream)return;
+
+stream=await navigator.mediaDevices.getUserMedia({
+video:{
+width:{ideal:1280},
+height:{ideal:720},
+facingMode:"user"
+},
+audio:false
+});
+
+video.srcObject=stream;
+await video.play();
+
+$("waiting").classList.add("hidden");
+$("liveDot").classList.add("live");
+$("cameraText").textContent="Camera Live";
+$("liveBadge").textContent="● CAMERA LIVE";
+$("liveBadge").className="liveBadge good";
+
+resizeCanvas();
+
+}
+
+
+/* LOAD MEDIAPIPE */
+
+async function importMediaPipe(){
+
+let firstError=null;
+
+try{
+return await import(CDN_1);
+}catch(error){
+firstError=error;
+console.warn("Primary MediaPipe CDN failed:",error);
+}
+
+try{
+return await import(CDN_2);
+}catch(error){
+console.warn("Fallback MediaPipe CDN failed:",error);
+
+throw new Error(
+"MediaPipe library download nahi ho rahi. "+
+"Internet connection/firewall check karo. "+
+"Original error: "+(firstError?.message||"unknown")
+);
+
+}
+
+}
+
+
+/* CREATE AI */
+
+async function loadAI(){
+
+if(faceLandmarker)return true;
+if(loadingAI)return false;
+
+loadingAI=true;
+
+setStatus(
+"Loading AI",
+"Eye detection engine load ho raha hai...",
+"⚙️"
+);
+
+try{
+
+const vision=await importMediaPipe();
+
+const FilesetResolver=vision.FilesetResolver;
+const FaceLandmarker=vision.FaceLandmarker;
+
+if(!FilesetResolver||!FaceLandmarker){
+throw new Error("FaceLandmarker library me available nahi hai.");
+}
+
+const fileset=
+await FilesetResolver.forVisionTasks(WASM_URL);
+
+faceLandmarker=
+await FaceLandmarker.createFromOptions(
+fileset,
+{
+baseOptions:{
+modelAssetPath:MODEL_URL,
+delegate:"CPU"
+},
+runningMode:"VIDEO",
+numFaces:1,
+minFaceDetectionConfidence:.4,
+minFacePresenceConfidence:.4,
+minTrackingConfidence:.4
+}
+);
+
+loadingAI=false;
+
+$("faceBadge").textContent="AI Ready";
+
+setStatus(
+"Monitoring Ready",
+"Eye detection engine ready hai.",
+"👁️"
+);
+
+return true;
+
+}catch(error){
+
+console.error("FINAL AI ERROR:",error);
+
+faceLandmarker=null;
+loadingAI=false;
+
+showError(
+"AI load nahi hua. Camera ko intentionally ON rakha gaya hai. "+
+"Technical error: "+(error.message||error)
+);
+
+setStatus(
+"AI Offline",
+"Camera live hai, lekin eye detection unavailable hai.",
+"⚠️"
+);
+
+return false;
+
+}
+
+}
+
+
+/* EYE DETECTION */
+
+function distance(a,b){
+const dx=a.x-b.x;
+const dy=a.y-b.y;
+return Math.sqrt(dx*dx+dy*dy);
+}
+
+function eyeRatio(points,indexes){
+
+const vertical1=distance(points[indexes[1]],points[indexes[5]]);
+const vertical2=distance(points[indexes[2]],points[indexes[4]]);
+const horizontal=distance(points[indexes[0]],points[indexes[3]]);
+
+if(horizontal===0)return 0;
+
+return(vertical1+vertical2)/(2*horizontal);
+
+}
+
+function getEyeState(points){
+
+const left=eyeRatio(points,[33,160,158,133,153,144]);
+const right=eyeRatio(points,[362,385,387,263,373,380]);
+const average=(left+right)/2;
+
+return{
+ear:average,
+closed:average<.20
+};
+
+}
+
+
+/* DRAW */
+
+function drawEyes(points,closed){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+const indexes=[
+33,160,158,133,153,144,
+362,385,387,263,373,380
+];
+
+ctx.fillStyle=closed?"#ef4444":"#22c55e";
+
+for(const index of indexes){
+
+const p=points[index];
+if(!p)continue;
+
+const x=(1-p.x)*canvas.width;
+const y=p.y*canvas.height;
+
+ctx.beginPath();
+ctx.arc(x,y,4,0,Math.PI*2);
+ctx.fill();
+
+}
+
+}
+
+
+/* DETECTION */
+
+function detect(){
+
+if(!running||!faceLandmarker||video.readyState<2)return;
+
+try{
+
+const result=
+faceLandmarker.detectForVideo(
+video,
+performance.now()
+);
+
+if(result.faceLandmarks&&result.faceLandmarks.length>0){
+
+const points=result.faceLandmarks[0];
+const state=getEyeState(points);
+
+$("faceBadge").textContent="Face Detected";
+$("confidence").textContent="95%+";
+$("eyeState").textContent=state.closed?"CLOSED":"OPEN";
+
+$("eyeState").style.color=
+state.closed?"#f87171":"#4ade80";
+
+drawEyes(points,state.closed);
+processEyes(state.closed);
+
+}else{
+
+$("faceBadge").textContent="No Face";
+$("confidence").textContent="0%";
+$("eyeState").textContent="Unknown";
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+}
+
+}catch(error){
+console.warn("Frame detection error:",error);
+}
+
+}
+
+
+/* EYE PROCESSING */
+
+function processEyes(closed){
+
+if(closed){
+
+if(!eyesClosed){
+
+eyesClosed=true;
+closedStart=performance.now();
+closedEventCounter++;
+
+$("closedEvents").textContent=closedEventCounter;
+
+}
+
+const duration=(performance.now()-closedStart)/1000;
+
+$("closedDuration").textContent=duration.toFixed(1)+"s";
+$("alertTime").textContent=duration.toFixed(1)+"s";
+
+const progress=Math.min(
+100,
+(duration/alertDelay)*100
+);
+
+$("progressBar").style.width=progress+"%";
+
+if(duration>longestClose){
+
+longestClose=duration;
+$("longestClose").textContent=
+longestClose.toFixed(1)+"s";
+
+}
+
+if(duration>=alertDelay&&!alertActive){
+showAlert();
+}
+
+}else{
+
+eyesClosed=false;
+
+$("closedDuration").textContent="0.0s";
+$("alertTime").textContent="0.0s";
+$("progressBar").style.width="0%";
+
+if(alertActive)hideAlert();
+
+}
+
+}
+
+
+/* LOOP */
+
+function loop(){
+
+if(!running)return;
+
+detect();
+
+animationId=requestAnimationFrame(loop);
+
+}
+
+
+/* START */
+
+async function startMonitoring(){
+
+if(running)return;
+
+clearError();
+
+$("startBtn").disabled=true;
+$("stopBtn").disabled=false;
+
+try{
+
+setStatus(
+"Opening Camera",
+"Camera permission request ho rahi hai...",
+"📷"
+);
+
+await openCamera();
+
+}catch(error){
+
+$("startBtn").disabled=false;
+$("stopBtn").disabled=true;
+
+showError("Camera error: "+(error.message||error));
+
+setStatus(
+"Camera Error",
+"Camera permission check karo.",
+"⚠️"
+);
+
+return;
+
+}
+
+const ready=await loadAI();
+
+if(!ready){
+
+$("startBtn").disabled=false;
+$("stopBtn").disabled=false;
+return;
+
+}
+
+running=true;
+sessionStart=Date.now();
+
+sessionTimer=setInterval(updateSession,1000);
+
+$("liveBadge").textContent="● AI MONITORING";
+$("liveBadge").className="liveBadge good";
+
+setStatus(
+"Monitoring",
+"Eye detection active hai.",
+"👀"
+);
+
+loop();
+
+}
+
+
+/* STOP */
+
+function stopMonitoring(){
+
+running=false;
+
+if(animationId){
+cancelAnimationFrame(animationId);
+animationId=null;
+}
+
+if(sessionTimer){
+clearInterval(sessionTimer);
+sessionTimer=null;
+}
+
+stopCamera();
+hideAlert();
+
+eyesClosed=false;
+
+$("closedDuration").textContent="0.0s";
+$("progressBar").style.width="0%";
+$("eyeState").textContent="Unknown";
+$("confidence").textContent="0%";
+$("faceBadge").textContent="Stopped";
+
+$("startBtn").disabled=false;
+$("stopBtn").disabled=true;
+
+setStatus(
+"Stopped",
+"Monitoring stopped.",
+"⏹️"
+);
+
+}
+
+
+/* STOP CAMERA */
+
+function stopCamera(){
+
+if(stream){
+
+stream.getTracks().forEach(track=>track.stop());
+stream=null;
+
+}
+
+video.srcObject=null;
+
+$("waiting").classList.remove("hidden");
+$("liveDot").classList.remove("live");
+$("cameraText").textContent="Camera Offline";
+$("liveBadge").textContent="SYSTEM STANDBY";
+$("liveBadge").className="liveBadge";
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+}
+
+
+/* TIMER */
+
+function updateSession(){
+
+if(!sessionStart)return;
+
+const seconds=(Date.now()-sessionStart)/1000;
+
+const minutes=String(
+Math.floor(seconds/60)
+).padStart(2,"0");
+
+const secs=String(
+Math.floor(seconds%60)
+).padStart(2,"0");
+
+$("sessionTime").textContent=minutes+":"+secs;
+
+}
+
+
+/* ALERT */
+
+function showAlert(){
+
+if(alertActive)return;
+
+alertActive=true;
+alertCounter++;
+
+$("alertCount").textContent=alertCounter;
+$("alert").classList.add("show");
+
+setStatus(
+"ALERT ACTIVE",
+"Eyes closed for too long.",
+"🚨"
+);
+
+if(soundEnabled)startSiren();
+
+}
+
+function hideAlert(){
+
+alertActive=false;
+$("alert").classList.remove("show");
+stopSiren();
+
+if(running){
+
+setStatus(
+"Monitoring",
+"Eye detection active hai.",
+"👀"
+);
+
+}
+
+}
+
+
+/* SIREN */
+
+function startSiren(){
+
+if(!soundEnabled||audioContext)return;
+
+try{
+
+audioContext=
+new(
+window.AudioContext||
+window.webkitAudioContext
+)();
+
+oscillator=audioContext.createOscillator();
+gainNode=audioContext.createGain();
+
+oscillator.type="square";
+gainNode.gain.value=.05;
+
+oscillator.connect(gainNode);
+gainNode.connect(audioContext.destination);
+
+oscillator.start();
+
+let high=false;
+
+sirenInterval=setInterval(function(){
+
+if(!oscillator||!audioContext)return;
+
+high=!high;
+
+oscillator.frequency.setValueAtTime(
+high?850:500,
+audioContext.currentTime
+);
+
+},300);
+
+}catch(error){
+
+console.warn("Audio unavailable:",error);
+
+}
+
+}
+
+function stopSiren(){
+
+if(sirenInterval){
+clearInterval(sirenInterval);
+sirenInterval=null;
+}
+
+try{
+if(oscillator)oscillator.stop();
+}catch(e){}
+
+try{
+if(audioContext)audioContext.close();
+}catch(e){}
+
+oscillator=null;
+gainNode=null;
+audioContext=null;
+
+}
+
+
+/* BUTTONS */
+
+$("startBtn").addEventListener(
+"click",
+startMonitoring
+);
+
+$("stopBtn").addEventListener(
+"click",
+stopMonitoring
+);
+
+$("testBtn").addEventListener(
+"click",
+function(){
+clearError();
+showAlert();
+}
+);
+
+$("closeAlert").addEventListener(
+"click",
+hideAlert
+);
+
+$("resetBtn").addEventListener(
+"click",
+function(){
+
+stopMonitoring();
+
+alertCounter=0;
+closedEventCounter=0;
+longestClose=0;
+
+$("alertCount").textContent="0";
+$("closedEvents").textContent="0";
+$("longestClose").textContent="0.0s";
+$("sessionTime").textContent="00:00";
+
+clearError();
+
+setStatus(
+"Ready",
+"Start monitoring to activate eye detection.",
+"👀"
+);
+
+}
+);
+
+
+/* LOCATION BUTTON */
+
+$("locationBtn").addEventListener(
+"click",
+requestLocation
+);
+
+
+/* SETTINGS */
+
+$("delayRange").addEventListener(
+"input",
+function(){
+
+alertDelay=Number(this.value);
+
+$("delayText").textContent=
+alertDelay.toFixed(1)+"s";
+
+}
+);
+
+$("soundToggle").addEventListener(
+"change",
+function(){
+
+soundEnabled=this.checked;
+
+if(!soundEnabled)stopSiren();
+
+}
+);
+
+$("guideToggle").addEventListener(
+"change",
+function(){
+
+$("faceGuide").style.display=
+this.checked?"block":"none";
+
+}
+);
+
+
+/* CANVAS */
+
+function resizeCanvas(){
+
+if(video.videoWidth){
+
+canvas.width=video.videoWidth;
+canvas.height=video.videoHeight;
+
+}else{
+
+canvas.width=1280;
+canvas.height=720;
+
+}
+
+}
+
+video.addEventListener(
+"loadedmetadata",
+resizeCanvas
+);
+
+window.addEventListener(
+"resize",
+resizeCanvas
+);
+
+
+/* INITIAL */
+
+$("delayText").textContent="3.0s";
+
+$("startBtn").disabled=false;
+$("stopBtn").disabled=true;
+
+
+/* LOCATION ON PAGE LOAD */
+
+requestLocation();
+
+console.log(
+"EyeGuard AI — Created by MANNU"
+);
+
+</script>
+
+</body>
+</html>
